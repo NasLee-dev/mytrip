@@ -11,7 +11,7 @@ import formatTime from '@/utils/formatTime'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Hotel({ hotel }: { hotel: IHotel }) {
+export default function HotelItem({ hotel }: { hotel: IHotel }) {
   const [remainedTime, setRemainedTime] = useState(0)
 
   useEffect(() => {

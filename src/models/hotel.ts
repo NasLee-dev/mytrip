@@ -2,7 +2,7 @@ export interface Hotel {
   comment: string
   contents: string
   id: string
-  image: string[]
+  images: string[]
   location: {
     direction: string
     pointGeolocation: {
