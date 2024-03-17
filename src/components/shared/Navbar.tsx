@@ -4,18 +4,28 @@ import { css } from '@emotion/react'
 import { colors } from '@/styles/colorPalette'
 import { useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import useUser from '@/hooks/auth/useUser'
 
 export default function Navbar() {
   const location = useLocation()
   const showSignButton =
     ['/signup', '/signin'].includes(location.pathname) === false
-  const user = null
+  const user = useUser()
 
   const renderButton = useCallback(() => {
     if (user != null) {
       return (
         <Link to="/my">
-          <img src="" alt="profile" />
+          <img
+            src={
+              user.photoURL ??
+              'https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-64.png'
+            }
+            alt="user's_image"
+            width={40}
+            height={40}
+            style={{ borderRadius: '100%' }}
+          />
         </Link>
       )
     }
@@ -31,7 +41,7 @@ export default function Navbar() {
 
   return (
     <Flex css={navbarContainerStyles} justify="space-between" align="center">
-      <Link to="/">홈</Link>
+      <Link to="/">My Trip</Link>
       {showSignButton ? <Link to="/signin">{renderButton()}</Link> : null}
     </Flex>
   )

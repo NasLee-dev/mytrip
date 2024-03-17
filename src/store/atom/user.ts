@@ -1,0 +1,12 @@
+import { User } from '@/models/user'
+import { atom } from 'recoil'
+
+export const userAtom = atom<User | null>({
+  key: 'auth/user',
+  default: {
+    uid: '',
+    email: '',
+    displayName: '',
+    photoURL: '',
+  },
+})
