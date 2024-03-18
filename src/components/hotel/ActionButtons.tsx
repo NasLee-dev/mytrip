@@ -5,18 +5,19 @@ import Flex from '../shared/Flex'
 import Spacing from '../shared/Spacing'
 import Text from '../shared/Text'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import useLike from '../hotelList/hooks/like/useLike'
 
 export default function ActionButtons({ hotel }: { hotel: Hotel }) {
   const share = useShare()
-  const { name, comment, mainImageUrl } = hotel
-  // const isLike = Boolean(likes?.find((like) => like.hotelId === hotel.id))
-  const isLike = false
+  const { name, comment, mainImageUrl, id } = hotel
+  const { data: likes, mutate: like } = useLike()
+  const isLike = Boolean(likes?.find((like) => like.hotelId === hotel.id))
   return (
     <Flex css={containerStyles}>
       <Button
         label="찜하기"
         onClick={() => {
-          console.log('찜하기')
+          like({ hotel: { name, id, mainImageUrl } })
         }}
         iconUrl={
           isLike
