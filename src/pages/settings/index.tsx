@@ -15,6 +15,16 @@ export default function SettingsPage() {
             />
           </Link>
         </li>
+        <li>
+          <Link to="/reservation/list">
+            <ListRow
+              as="div"
+              contents={
+                <ListRow.Texts title="예약목록" subtitle="예약목록 보러가기" />
+              }
+            />
+          </Link>
+        </li>
       </ul>
     </div>
   )

@@ -1,6 +1,6 @@
 import { DayPicker, DateRange } from 'react-day-picker'
 import { ko } from 'date-fns/locale'
-import { format, isSameDay, parseISO } from 'date-fns'
+import { addDays, format, isSameDay, parseISO } from 'date-fns'
 import styled from '@emotion/styled'
 import { colors } from '@/styles/colorPalette'
 
@@ -20,7 +20,6 @@ export default function RangePicker({
     if (dateRange == null) {
       return
     }
-    console.log(dateRange)
     const { from, to } = dateRange
     // 1. 중복된 날짜
     if (from && to && isSameDay(from, to)) {
@@ -46,6 +45,9 @@ export default function RangePicker({
         defaultMonth={today}
         onSelect={handleDayClick}
         selected={selected}
+        disabled={{
+          before: addDays(new Date(), 1),
+        }}
       />
     </Container>
   )

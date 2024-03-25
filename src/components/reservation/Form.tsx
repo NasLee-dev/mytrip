@@ -1,5 +1,5 @@
 import { Hotel, ReservationForm } from '@/models/hotel'
-import { useCallback } from 'react'
+import { Fragment, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import FixedButtomButton from '../shared/FixedBottomButton'
 import Select from '../shared/Select'
@@ -7,16 +7,22 @@ import Spacing from '../shared/Spacing'
 import Text from '../shared/Text'
 import TextField from '../shared/TextField'
 
+type FormData = {
+  [key: string]: string
+}
+
 export default function Form({
   forms,
   onSubmit,
   buttonLabel,
 }: {
-  onSubmit: () => void
+  onSubmit: (formValues: FormData) => void
   forms: Hotel['forms']
   buttonLabel: string
 }) {
-  const { register, formState, handleSubmit } = useForm({ mode: 'onBlur' })
+  const { register, formState, handleSubmit } = useForm<FormData>({
+    mode: 'onBlur',
+  })
   const component = useCallback(
     (form: ReservationForm) => {
       if (form.type === 'TEXT_FIELD') {
@@ -58,9 +64,15 @@ export default function Form({
       }}
     >
       <Text bold={true}>예약정보</Text>
+      <Spacing size={16} />
       <form>
         {forms.map((form) => {
-          return <>{component(form)}</>
+          return (
+            <Fragment key={form.id}>
+              {component(form)}
+              <Spacing size={8} />
+            </Fragment>
+          )
         })}
       </form>
       <Spacing size={15} />

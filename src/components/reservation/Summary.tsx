@@ -56,7 +56,6 @@ export default function Summary({
                 </Flex>
               )
             }
-
             return null
           })}
         </ul>
