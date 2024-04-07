@@ -1,16 +1,19 @@
-import Flex from './Flex'
-import Button from './Button'
 import { css } from '@emotion/react'
-import { colors } from '@/styles/colorPalette'
-import { useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import useUser from '@/hooks/auth/useUser'
+
+import { useCallback } from 'react'
+
+import { colors } from '@styles/colorPalette'
+import Flex from '@shared/Flex'
+import Button from '@shared/Button'
+import useUser from '@hooks/auth/useUser'
 import Spacing from './Spacing'
 
-export default function Navbar() {
+function Navbar() {
   const location = useLocation()
   const showSignButton =
     ['/signup', '/signin'].includes(location.pathname) === false
+
   const user = useUser()
 
   const renderButton = useCallback(() => {
@@ -21,9 +24,9 @@ export default function Navbar() {
             <img
               src={
                 user.photoURL ??
-                'https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-64.png'
+                'https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-128.png'
               }
-              alt="user's_image"
+              alt="유저의 이미지"
               width={40}
               height={40}
               style={{ borderRadius: '100%' }}
@@ -41,6 +44,7 @@ export default function Navbar() {
         </Flex>
       )
     }
+
     if (showSignButton) {
       return (
         <Link to="/signin">
@@ -48,13 +52,14 @@ export default function Navbar() {
         </Link>
       )
     }
+
     return null
   }, [user, showSignButton])
 
   return (
-    <Flex css={navbarContainerStyles} justify="space-between" align="center">
-      <Link to="/">My Trip</Link>
-      {showSignButton ? <Link to="/signin">{renderButton()}</Link> : null}
+    <Flex justify="space-between" align="center" css={navbarContainerStyles}>
+      <Link to="/">Love Trip</Link>
+      {renderButton()}
     </Flex>
   )
 }
@@ -67,3 +72,5 @@ const navbarContainerStyles = css`
   z-index: 10;
   border-bottom: 1px solid ${colors.gray};
 `
+
+export default Navbar

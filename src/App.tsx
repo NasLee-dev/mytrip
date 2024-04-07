@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import useLoadKakao from './hooks/useLoadKakao'
+import { HelmetProvider } from 'react-helmet-async'
 
 const Test = lazy(() => import('./pages/Test'))
 const HotelList = lazy(() => import('./pages/HotelList'))
@@ -21,66 +22,68 @@ function App() {
   useLoadKakao()
   return (
     <Suspense fallback={<></>}>
-      <BrowserRouter>
-        <AuthGuard>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HotelList />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/hotel/:id" element={<HotelPage />} />
-            <Route path="/my" element={<MyPage />} />
-            <Route path="/signin" element={<SigninPage />} />
-            <Route
-              path="/settings"
-              element={
-                <PrivateRoute>
-                  <SettingsPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/settings/like"
-              element={
-                <PrivateRoute>
-                  <LikePage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/schedule"
-              element={
-                <PrivateRoute>
-                  <SchedulePage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/reservation"
-              element={
-                <PrivateRoute>
-                  <ReservationPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/reservation/done"
-              element={
-                <PrivateRoute>
-                  <ReservationDonePage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/reservation/list"
-              element={
-                <PrivateRoute>
-                  <ReservationListPage />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </AuthGuard>
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <AuthGuard>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<HotelList />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="/hotel/:id" element={<HotelPage />} />
+              <Route path="/my" element={<MyPage />} />
+              <Route path="/signin" element={<SigninPage />} />
+              <Route
+                path="/settings"
+                element={
+                  <PrivateRoute>
+                    <SettingsPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/settings/like"
+                element={
+                  <PrivateRoute>
+                    <LikePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/schedule"
+                element={
+                  <PrivateRoute>
+                    <SchedulePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation"
+                element={
+                  <PrivateRoute>
+                    <ReservationPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation/done"
+                element={
+                  <PrivateRoute>
+                    <ReservationDonePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/reservation/list"
+                element={
+                  <PrivateRoute>
+                    <ReservationListPage />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </AuthGuard>
+        </BrowserRouter>
+      </HelmetProvider>
     </Suspense>
   )
 }
